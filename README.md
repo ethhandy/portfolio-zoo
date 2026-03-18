@@ -10,6 +10,7 @@ Browse the collection, pick a design you love, swap in your own content, and dep
 |---------|------|-------|------|--------|
 | [Live Demo](https://ethhandy.github.io/portfolio-zoo/macos-desktop/) | **macos-desktop** | macOS Desktop | HTML / CSS / JS | — |
 | [Live Demo](https://ethhandy.github.io/portfolio-zoo/retro-terminal/) | **retro-terminal** | Old PC / DOS Terminal | HTML / CSS / JS | — |
+| [Live Demo](https://ethhandy.github.io/portfolio-zoo/designer-folio/) | **designer-folio** | Minimal UX/UI Designer | HTML / CSS / JS | — |
 
 > Want yours here? [Contribute a portfolio!](#contributing)
 

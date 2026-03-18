@@ -1,0 +1,391 @@
+/* ===== RESET & BASE ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --green: #33ff33;
+  --green-dim: #1a9e1a;
+  --green-glow: rgba(51, 255, 51, 0.15);
+  --green-bright: #66ff66;
+  --amber: #ffb000;
+  --amber-dim: #996a00;
+  --bg: #0a0a0a;
+  --bg-screen: #050505;
+  --bezel: #2a2a2a;
+  --bezel-edge: #1a1a1a;
+  --text: var(--green);
+  --text-dim: var(--green-dim);
+  --font: 'VT323', 'Courier New', monospace;
+  --font-alt: 'IBM Plex Mono', monospace;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  -webkit-font-smoothing: none;
+}
+
+/* ===== CRT EFFECTS ===== */
+.crt-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* ===== MONITOR ===== */
+.monitor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.monitor-bezel {
+  background: var(--bezel);
+  border-radius: 16px;
+  padding: 20px;
+  border: 3px solid var(--bezel-edge);
+  box-shadow:
+    0 0 60px rgba(51, 255, 51, 0.05),
+    inset 0 2px 4px rgba(255, 255, 255, 0.05),
+    0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.monitor-screen {
+  width: min(800px, 90vw);
+  height: min(520px, 70vh);
+  background: var(--bg-screen);
+  border-radius: 6px;
+  border: 2px solid #111;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 80px rgba(51, 255, 51, 0.03),
+    inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.monitor-stand {
+  width: 60px;
+  height: 30px;
+  background: linear-gradient(to bottom, var(--bezel), var(--bezel-edge));
+  border-radius: 0 0 4px 4px;
+}
+
+.monitor-base {
+  width: 160px;
+  height: 12px;
+  background: var(--bezel);
+  border-radius: 0 0 8px 8px;
+  border: 2px solid var(--bezel-edge);
+  border-top: none;
+}
+
+.power-led {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green), 0 0 16px var(--green-glow);
+  animation: led-pulse 2s ease-in-out infinite;
+}
+
+@keyframes led-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ===== TITLE BAR ===== */
+.title-bar {
+  height: 28px;
+  background: linear-gradient(to right, #000080, #1084d0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px 0 8px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.title-bar-text {
+  font-family: var(--font-alt);
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+.title-bar-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.tb-btn {
+  width: 20px;
+  height: 18px;
+  background: #c0c0c0;
+  border: 1px outset #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-alt);
+  font-size: 11px;
+  font-weight: 700;
+  color: #000;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.tb-btn:active {
+  border-style: inset;
+}
+
+/* ===== TERMINAL ===== */
+.terminal {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+}
+
+.terminal::-webkit-scrollbar {
+  width: 12px;
+}
+
+.terminal::-webkit-scrollbar-track {
+  background: #111;
+}
+
+.terminal::-webkit-scrollbar-thumb {
+  background: #333;
+  border: 2px solid #111;
+}
+
+/* Output lines */
+#output {
+  flex: 1;
+}
+
+.line {
+  margin-bottom: 2px;
+  word-wrap: break-word;
+}
+
+.line-cmd {
+  color: var(--green-bright);
+}
+
+.line-info {
+  color: var(--green);
+}
+
+.line-dim {
+  color: var(--green-dim);
+}
+
+.line-header {
+  color: var(--amber);
+  font-size: 20px;
+}
+
+.line-accent {
+  color: var(--amber);
+}
+
+.line-error {
+  color: #ff4444;
+}
+
+.line-separator {
+  color: var(--green-dim);
+  opacity: 0.5;
+}
+
+.line-blank {
+  height: 18px;
+}
+
+/* ASCII art */
+.ascii-art {
+  color: var(--green);
+  line-height: 1.15;
+  font-size: 14px;
+  white-space: pre;
+}
+
+/* Input line */
+.input-line {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.prompt {
+  color: var(--green);
+  white-space: nowrap;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.cmd-hidden {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.cmd-mirror {
+  color: var(--green-bright);
+  white-space: pre;
+}
+
+.cursor-block {
+  color: var(--green);
+  animation: blink 0.8s step-end infinite;
+  font-weight: 700;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Typing animation */
+.typing::after {
+  content: '_';
+  animation: blink 0.8s step-end infinite;
+}
+
+/* Tables */
+.table-row {
+  display: flex;
+  gap: 4px;
+}
+
+.table-key {
+  color: var(--amber);
+  min-width: 18ch;
+  flex-shrink: 0;
+}
+
+.table-val {
+  color: var(--green);
+}
+
+/* Progress bar */
+.progress-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-track {
+  color: var(--green-dim);
+}
+
+.progress-fill {
+  color: var(--green);
+}
+
+.progress-label {
+  color: var(--green-dim);
+  font-size: 16px;
+}
+
+/* Link style */
+.term-link {
+  color: var(--amber);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.term-link:hover {
+  color: var(--green-bright);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .monitor-bezel {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .monitor-screen {
+    width: 95vw;
+    height: 80vh;
+  }
+
+  .terminal {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+
+  .ascii-art {
+    font-size: 8px;
+  }
+
+  .table-key {
+    min-width: 14ch;
+  }
+
+  .monitor-stand,
+  .monitor-base {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .terminal {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+
+  .ascii-art {
+    font-size: 6px;
+  }
+
+  .table-key {
+    min-width: 12ch;
+  }
+}

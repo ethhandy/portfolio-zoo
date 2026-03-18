@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andrey Petrovic — Portfolio Terminal</title>
+
+  <meta name="description" content="Andrey Petrovic — Full Stack Developer. Retro terminal-style portfolio." />
+  <meta name="author" content="Andrey Petrovic" />
+  <meta name="theme-color" content="#0a0a0a" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- CRT overlay effects -->
+  <div class="crt-overlay"></div>
+  <div class="scanlines"></div>
+
+  <!-- Monitor frame -->
+  <div class="monitor">
+    <div class="monitor-bezel">
+      <div class="monitor-screen">
+        <!-- Title bar -->
+        <div class="title-bar">
+          <span class="title-bar-text">C:\PORTFOLIO\ANDREY.EXE</span>
+          <div class="title-bar-controls">
+            <span class="tb-btn">_</span>
+            <span class="tb-btn">□</span>
+            <span class="tb-btn">×</span>
+          </div>
+        </div>
+
+        <!-- Terminal output area -->
+        <div class="terminal" id="terminal">
+          <div id="output"></div>
+          <div class="input-line" id="input-line">
+            <span class="prompt">C:\PORTFOLIO&gt;</span>
+            <span id="cmd-mirror" class="cmd-mirror"></span><span class="cursor-block">_</span>
+            <input type="text" id="cmd-input" class="cmd-hidden" autocomplete="off" spellcheck="false" autofocus />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monitor base -->
+    <div class="monitor-stand"></div>
+    <div class="monitor-base"></div>
+  </div>
+
+  <!-- Power LED -->
+  <div class="power-led"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
